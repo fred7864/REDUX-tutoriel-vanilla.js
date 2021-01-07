@@ -1,0 +1,27 @@
+h1 {
+    text-align: center;
+}
+
+.section-one{
+    border: solid 2px black;
+    background-color:rgb(154, 205, 214) ;
+}
+
+.container {
+    width: 250px;
+    min-height: 50px;
+    padding: 20px;
+    border: 1 px solid red;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+img{
+    margin: 0 auto;
+}
+
+#count{
+    font-weight: bold;
+    font-size: 30px
+}
