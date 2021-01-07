@@ -1,6 +1,8 @@
 // Action
 const BUY_PHONE = 'BUY-PHONE';
 const BUY_PC = 'BUY-PC';
+const BUY_TV = 'BUY-TV';
+
 
 function buyPhone() {
     return {
@@ -14,15 +16,24 @@ function buyPc() {
     }
 }
 
+function BuyTv() {
+    return{
+        type: BUY_TV
+    }
+}
 
 // Reducer
 
-const initialState = {
+const initialStateDevice = {
     phones: 5,
     pc:10
 }
 
-const reducer = (state = initialState, action) => {
+const initialStateTv = {
+    tv: 15
+}
+
+const DeviceReducer = (state = initialStateDevice, action) => {
     switch (action.type) {
         case BUY_PHONE:
             return {
@@ -39,14 +50,35 @@ const reducer = (state = initialState, action) => {
     }
 }
 
+const TvReducer = (state = initialStateTv, action) => {
+    switch (action.type) {
+        case BUY_TV:
+            return {
+                ...state,
+                tv: state.tv -1
+            }
+        default: return state
+    }
+}
+
+// Combine Reducers
+const rootReducer = Redux.combineReducers({
+    device: DeviceReducer,
+    tv: TvReducer
+})
+
 // Créer le STORE
-const store = Redux.createStore(reducer);
+const store = Redux.createStore(rootReducer);
 
 // Récupérer la data du Store
 const availablePhones =  document.getElementById('count');
 const availablePC =  document.getElementById('count-pc');
-availablePhones.innerHTML = store.getState().phones;
-availablePC.innerHTML = store.getState().pc;
+const availableTV =  document.getElementById('count-tv');
+availablePhones.innerHTML = store.getState().device.phones;
+availablePC.innerHTML = store.getState().device.pc;
+availableTV.innerHTML = store.getState().tv.tv;
+console.log(store.getState())
+
 
 
 
@@ -57,12 +89,17 @@ document.getElementById('buy-phone').addEventListener('click', function() {
 document.getElementById('buy-pc').addEventListener('click', function() {
     store.dispatch(buyPc())
 })
+document.getElementById('buy-tv').addEventListener('click', function() {
+    store.dispatch(BuyTv())
+})
 
 
 // Listener
 store.subscribe(() => {
-    availablePhones.innerHTML = store.getState().phones;
-    availablePC.innerHTML = store.getState().pc;
+    availablePhones.innerHTML = store.getState().device.phones;
+    availablePC.innerHTML = store.getState().device.pc;
+    availableTV.innerHTML = store.getState().tv.tv;
+    console.log('updated state', store.getState())
 })
 
 

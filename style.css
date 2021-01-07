@@ -4,7 +4,8 @@ h1 {
 
 .section-one{
     border: solid 2px black;
-    background-color:rgb(154, 205, 214) ;
+    background-color:rgb(154, 205, 214);
+    display: flex
 }
 
 .container {
